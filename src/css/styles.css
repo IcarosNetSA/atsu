@@ -1,0 +1,24 @@
+body {
+  width: 250px;
+  min-height: 300px;
+}
+.fs-7 {
+  font-size: 0.8rem !important;
+}
+.fs-8 {
+  font-size: 0.65rem !important;
+}
+
+.dark-theme {
+  color: #c27ba0;
+  background-color: rgb(45, 45, 45);
+}
+
+.dark-theme h1 {
+  color: #f6b26b;
+}
+
+.dark-theme #introduction {
+  font-style: italic;
+  color: #f6b26b;
+}

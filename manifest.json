@@ -1,0 +1,55 @@
+{
+  "name": "ATSU",
+  "version": "1.0",
+  "description": "ATSU - Advanced Toolkit for StackOverflow Users",
+  "manifest_version": 3,
+  "author": [
+    {
+      "author1": {
+        "name": "Walter Nuñez",
+        "email": "icarosnet@gmail.com",
+        "secction": "ATSU - Toolkit"
+      },
+      "author2": {
+        "name": "Christian Velasquez",
+        "email": "example@gmail.com",
+        "secction": "Base Kit"
+      }
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "src/html/popup.html",
+    "default_title": "ATSU - Advanced Toolkit for StackOverflow Users",
+    "default_icon": {
+      "32": "src/img/32.png",
+      "48": "src/img/48.png",
+      "64": "src/img/64.png",
+      "128": "src/img/128.png"
+    }
+  },
+  "icons": {
+    "32": "src/img/32.png",
+    "48": "src/img/48.png",
+    "64": "src/img/64.png",
+    "128": "src/img/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.com/*"],
+      "js": ["src/js/document.js"],
+      "css": ["src/css/style_links.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "bookmarks",
+    "unlimitedStorage",
+    "storage"
+  ],
+  "host_permissions": ["*://*/*"]
+}

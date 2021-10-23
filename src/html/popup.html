@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+    <title>ATSU Setup Setting</title>
+</head>
+
+<body class="dark-theme">
+    <h1 class="fs-4 fw-bold m-2">Wellcome to ATSU!</h1>
+    <div id="introduction" class="fst-italic m-2 fs-8">
+        ATSU is the acronym of Advanced Toolkit for StackOverflow Users.
+    </div>
+    <hr class="mb-1 mt-1" />
+    <div class="container">
+        <div class="bd-example">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="act-url" data-bs-toggle="collapse"
+                    href="#atsu-options" aria-expanded="false" aria-controls="atsu-options">
+                <label class="form-check-label fs-7" for="flexSwitchCheckDefault"> Activate ATSU on this page?</label>
+            </div>
+        </div>
+        <div class="bd-example collapse" id="atsu-options">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="atsu-post" data-bs-toggle="collapse"
+                    href="#atsu-colors" aria-expanded="false" aria-controls="atsu-colors">
+                <label class="form-check-label fs-7" for="atsu-post">Enable Highlighting of POST Visited?</label>
+            </div>
+        </div>
+        <div class="bd-example collapse mb-2" id="atsu-colors">
+            <div class="row">
+                <div class="col">
+                    <label for="atsu-color-normal" class="form-label">Normal</label>
+                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-normal"
+                        value="#c27ba0" title="Choose your color">
+                </div>
+                <div class="col">
+                    <label for="atsu-color-visited" class="form-label">Visited</label>
+                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-visited"
+                        value="#f6b26b" title="Choose your color">
+                </div>
+                <div class="col">
+                    <label for="atsu-color-closed" class="form-label">Closed</label>
+                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-closed"
+                        value="#b5adaa" title="Choose your color">
+                </div>
+            </div>
+        </div>
+        <div class="bd-example">
+            <button type="button" class="btn btn-success form-control-sm" id="atsu-apply">Apply</button>
+            <button type="button" class="btn btn-warning form-control-sm" id="atsu-cancel">Cancel</button>
+        </div>
+    </div>
+    <hr class="mb-1 mt-1" />
+    <div class="container">
+        <div class="bd-example mb-2 mt-2">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option value="1">White</option>
+                    <option value="2">Dark</option>
+                    <option value="3" selected>ATSU</option>
+                </select>
+                <label for="floatingSelect">Select theme for ATSU</label>
+            </div>
+        </div>
+    </div>
+    <hr class="mb-1 mt-1" />
+    <p class="text-start m-2 fs-7"><b>Note:</b> If you are interested in not losing the configuration of this extension,
+        you can associate it with your google account.</p>
+    <div class="container mb-2">
+        <div class="bd-example">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="st-setting">
+                <label class="form-check-label fs-7" for="flexSwitchCheckDefault"> Activate Store Setting Sync?</label>
+            </div>
+        </div>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/popup.js"></script>
+</body>
+</html>
