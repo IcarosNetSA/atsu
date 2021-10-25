@@ -40,11 +40,11 @@
     {
       "matches": ["https://*.com/*"],
       "js": ["src/js/document.js"],
-      "css": ["src/css/style_links.css"],
       "run_at": "document_end"
     }
   ],
   "permissions": [
+    "history",
     "tabs",
     "activeTab",
     "bookmarks",

@@ -12,47 +12,64 @@
 <body class="dark-theme">
     <h1 class="fs-4 fw-bold m-2">Wellcome to ATSU!</h1>
     <div id="introduction" class="fst-italic m-2 fs-8">
-        ATSU is the acronym of Advanced Toolkit for StackOverflow Users.
+        ATSU is the acronym of Advanced Toolkit for Stack Overflow Users.
     </div>
     <hr class="mb-1 mt-1" />
     <div class="container">
         <div class="bd-example">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="act-url" data-bs-toggle="collapse"
-                    href="#atsu-options" aria-expanded="false" aria-controls="atsu-options">
-                <label class="form-check-label fs-7" for="flexSwitchCheckDefault"> Activate ATSU on this page?</label>
+                data-bs-target=".atsu-options" aria-expanded="false" aria-controls="atsu-options">
+                <label class="form-check-label fs-7"> Activate ATSU on this page?</label>
             </div>
         </div>
-        <div class="bd-example collapse" id="atsu-options">
+
+        <div class="bd-example collapse atsu-options">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-post" data-bs-toggle="collapse"
-                    href="#atsu-colors" aria-expanded="false" aria-controls="atsu-colors">
-                <label class="form-check-label fs-7" for="atsu-post">Enable Highlighting of POST Visited?</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="atsu-comment">
+                <label class="form-check-label fs-7">Enable Rich Comments?</label>
             </div>
         </div>
-        <div class="bd-example collapse mb-2" id="atsu-colors">
+
+        <div class="bd-example collapse atsu-options">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="atsu-lang-dt">
+                <label class="form-check-label fs-7">Enable Language Detection?</label>
+            </div>
+        </div>
+
+        <div class="bd-example collapse atsu-options">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="atsu-hl-post" data-bs-toggle="collapse"
+                 data-bs-target=".atsu-colors" aria-expanded="false" aria-controls="atsu-colors">
+                <label class="form-check-label fs-7">Enable Highlighting of POST Visited?</label>
+            </div>
+        </div>
+        <div class="bd-example collapse mb-2 atsu-colors">
             <div class="row">
                 <div class="col">
-                    <label for="atsu-color-normal" class="form-label">Normal</label>
-                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-normal"
+                    <label class="form-label">Normal</label>
+                    <input type="color" class="form-control form-control-color" id="atsu-color-normal"
                         value="#c27ba0" title="Choose your color">
                 </div>
                 <div class="col">
-                    <label for="atsu-color-visited" class="form-label">Visited</label>
-                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-visited"
+                    <label class="form-label">Visited</label>
+                    <input type="color" class="form-control form-control-color" id="atsu-color-visited"
                         value="#f6b26b" title="Choose your color">
                 </div>
                 <div class="col">
-                    <label for="atsu-color-closed" class="form-label">Closed</label>
-                    <input type="color" class="form-control form-control-color form-control-sm" id="atsu-color-closed"
+                    <label class="form-label">Closed</label>
+                    <input type="color" class="form-control form-control-color btn-sm" id="atsu-color-closed"
                         value="#b5adaa" title="Choose your color">
                 </div>
             </div>
         </div>
-        <div class="bd-example">
-            <button type="button" class="btn btn-success form-control-sm" id="atsu-apply">Apply</button>
-            <button type="button" class="btn btn-warning form-control-sm" id="atsu-cancel">Cancel</button>
-        </div>
+    </div>
+    <hr class="mb-1 mt-1 collapse atsu-options" />
+    <div class="container collapse atsu-options">
+        <button type="button" class="btn btn-outline-success btn-sm" id="atsu-apply">Save</button>
+        <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-cancel">Cancel</button>
+        <labelid="atsu-not-save"></label>
     </div>
     <hr class="mb-1 mt-1" />
     <div class="container">

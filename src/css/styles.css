@@ -1,5 +1,5 @@
 body {
-  width: 250px;
+  width: 300px;
   min-height: 300px;
 }
 .fs-7 {
@@ -21,4 +21,9 @@ body {
 .dark-theme #introduction {
   font-style: italic;
   color: #f6b26b;
+}
+
+
+.form-control-color {
+  padding: 0.125rem;
 }

@@ -1,3 +1,4 @@
+console.log('background.js');
 class IconEvent {
     newtab = () => {
         chrome.action.setBadgeText({ text: "Open!" });
@@ -20,8 +21,13 @@ chrome.runtime.onInstalled.addListener(async () => {
     new IconEvent().newtab();
 });
 
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.popupOpen) {
+chrome.runtime.onMessage.addListener(function (data) {
+    if (data.popupOpen) {
         new IconEvent().setup();
     }
+    /*
+    if (data.hasOwnProperty('colors')) {
+        window.setColorLink(colors.normal, colors.visited, colors.closed);
+    }
+    */
 });
