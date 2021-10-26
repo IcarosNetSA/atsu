@@ -12,8 +12,8 @@
       },
       "author2": {
         "name": "Christian Velasquez",
-        "email": "example@gmail.com",
-        "secction": "Base Kit"
+        "email": "christianvelasces@gmail.com",
+        "secction": "Base Kit Color & Features"
       }
     }
   ],
@@ -38,9 +38,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.com/*"],
-      "js": ["src/js/document.js"],
-      "run_at": "document_end"
+      "matches": [
+        "https://*.com/*"
+      ],
+      "js": [
+        "src/js/document.js","src/js/stacks.min.js"
+      ]
     }
   ],
   "permissions": [
@@ -49,7 +52,10 @@
     "activeTab",
     "bookmarks",
     "unlimitedStorage",
-    "storage"
+    "storage",
+    "cookies"
   ],
-  "host_permissions": ["*://*/*"]
+  "host_permissions": [
+    "*://*/*"
+  ]
 }

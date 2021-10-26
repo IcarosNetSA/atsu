@@ -10,17 +10,17 @@ body {
 }
 
 .dark-theme {
-  color: #c27ba0;
+  color: rgb(194, 123, 160);
   background-color: rgb(45, 45, 45);
 }
 
 .dark-theme h1 {
-  color: #f6b26b;
+  color: rgb(246, 178, 107);
 }
 
 .dark-theme #introduction {
   font-style: italic;
-  color: #f6b26b;
+  color: rgb(246, 178, 107);
 }
 
 
