@@ -17,6 +17,13 @@
     <hr class="mb-1 mt-1" />
     <div class="container">
         <div class="bd-example">
+            <label class="form-control-label fs-7">ATSU language display?</label>
+            <select class="form-select form-select-xs d-inline-flex w-auto">
+                <option value="EN" selected>EN</option>
+                <option value="ES">ES</option>
+            </select>
+        </div>
+        <div class="bd-example">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="act-url">
                 <label class="form-check-label fs-7"> Activate ATSU on this page?</label>
@@ -35,8 +42,8 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="atsu-lang-dt">
                 <label class="form-check-label fs-7">Enable Language Detection?</label>
                 <select class="form-select form-select-xs d-inline-flex w-auto">
+                    <option value="EN" selected>EN</option>
                     <option value="ES">ES</option>
-                    <option value="EN">EN</option>
                 </select>
             </div>
         </div>
@@ -72,7 +79,7 @@
     <div class="container collapse atsu-options">
         <button type="button" class="btn btn-outline-success btn-sm" id="atsu-apply">Save</button>
         <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-cancel">Cancel</button>
-        <labelid="atsu-not-save"></label>
+        <label id="atsu-not-save"></label>
     </div>
     <hr class="mb-1 mt-1" />
     <div class="container">

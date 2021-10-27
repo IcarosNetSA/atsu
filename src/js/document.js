@@ -66,16 +66,15 @@ if (typeof post_id !== 'undefined') {
 
         // Options for the observer (which mutations to observe)
         const config = { attributes: true, childList: true, subtree: true };
-        console.log(targetNode, config);
 
         // Callback function to execute when mutations are observed
         const callback = function (mutationsList, observer) {
             // Use traditional 'for loops' for IE 11
             for (const mutation of mutationsList) {
                 if ('s-btn s-btn__primary' == mutation.target.className) {
-                    console.log(mutation.target.className);
+
                     let list = document.getElementsByClassName('js-comment-help-link s-btn s-btn__link ta-left px2');
-                    console.log(list, list[0], mutation);
+
 
                     let atsu_btn = `
                                     <button 
@@ -90,33 +89,61 @@ if (typeof post_id !== 'undefined') {
                     
                     
                                     <div data-controller="s-modal" data-s-modal-return-element="#atsu-post-comment">
-                                        <aside class="s-modal" id="atsu-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true" data-controller="s-modal" data-s-modal-target="modal" data-s-modal-return-element=".js-modal-open[data-target='#atsu-modal']" data-s-modal-remove-when-hidden="false">
-                                            <div class="s-modal--dialog" role="document">
-                                                <h1 class="s-modal--header" id="modal-title">Example title</h1>
-                                                <p class="s-modal--body" id="modal-description">Nullam ornare lectus vitae lacus sagittis, at sodales leo viverra. Suspendisse nec nulla dignissim elit varius tempus. Cras viverra neque at imperdiet vehicula. Curabitur condimentum id dolor vitae ultrices. Pellentesque scelerisque nunc sit amet leo fringilla bibendum. Etiam feugiat imperdiet mi, eu blandit arcu cursus a. Pellentesque cursus massa id dolor ullamcorper, at condimentum nunc ultrices.</p>
-                                                <div class="d-flex gs8 gsx s-modal--footer">
-                                                    <button class="flex--item s-btn s-btn__primary" type="button">Save changes</button>
-                                                    <button class="flex--item s-btn" type="button" data-action="s-modal#hide">Cancel</button>
+                                        <aside class="s-modal" id="atsu-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true" data-controller="s-modal" data-s-modal-target="modal" data-s-modal-return-element=".js-modal-open[data-target='#atsu-modal']" data-s-modal-remove-when-hidden="false" data-joder="1">
+                                            <div class="s-modal--dialog wmn8 hmn5" role="document">
+                                                <h1 class="s-modal--header" id="modal-title">Selection and Configuration Automatic Comments.</h1>
+                                                <div class="s-modal--body hs5" id="modal-description">
+
+                                                    <nav>
+                                                        <ul class="s-navigation" role="tablist" data-controller="s-navigation-tablist">
+                                                            <li>
+                                                                <button type="button"
+                                                                        role="tab"
+                                                                        id="tab-question"
+                                                                        aria-selected="true"
+                                                                        aria-controls="panel-question"
+                                                                        class="s-navigation--item is-selected">Comments for Questions</button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button"
+                                                                        role="tab"
+                                                                        id="tab-answers"
+                                                                        aria-selected="false"
+                                                                        aria-controls="panel-answers"
+                                                                        tabindex="-1"
+                                                                        class="s-navigation--item">Comments for Answers</button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button"
+                                                                        role="tab"
+                                                                        id="tab-comment-setting"
+                                                                        aria-selected="false"
+                                                                        aria-controls="panel-comment-setting"
+                                                                        tabindex="-1"
+                                                                        class="s-navigation--item">Setting</button>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                    
+                                                    <div id="panel-question" aria-labelledby="tab-question" class="d-flex hs5">
+                                                        Comments for question.
+
+                                                    </div>
+                                                    
+                                                    <div id="panel-answers" aria-labelledby="tab-answers" class="d-none d-flex hs5">
+                                                        Comments for Answers
+                                                    </div>
+                                                    <div id="panel-comment-setting" aria-labelledby="tab-comment-setting" class="d-none d-flex hs5">
+
+                                                        <div class="d-flex flex--item gs8 gsx as-end">
+                                                            <button class="flex--item s-btn s-btn__primary" type="button">Save Setting ATSU</button>
+                                                            <button class="flex--item s-btn" type="button" data-action="s-modal#hide">Cancel</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <button class="s-modal--close s-btn s-btn__muted js-modal-close" type="button" aria-label="Close" data-action="s-modal#hide">
-                                                    <svg aria-hidden="true" class="svg-icon iconClearSm" width="14" height="14" viewBox="0 0 14 14"><path d="M12 3.41 10.59 2 7 5.59 3.41 2 2 3.41 5.59 7 2 10.59 3.41 12 7 8.41 10.59 12 12 10.59 8.41 7 12 3.41Z"></path></svg>
-                                                </button>
                                             </div>
-                                        </aside>
-                                        <aside class="s-modal" id="atsu-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true" data-controller="s-modal" data-s-modal-target="modal" data-s-modal-return-element=".js-modal-open[data-target='#atsu-modal']" data-s-modal-remove-when-hidden="false">
-                                            <div class="s-modal--dialog" role="document">
-                                                <h1 class="s-modal--header" id="modal-title">Example title</h1>
-                                                <p class="s-modal--body" id="modal-description">Nullam ornare lectus vitae lacus sagittis, at sodales leo viverra. Suspendisse nec nulla dignissim elit varius tempus. Cras viverra neque at imperdiet vehicula. Curabitur condimentum id dolor vitae ultrices. Pellentesque scelerisque nunc sit amet leo fringilla bibendum. Etiam feugiat imperdiet mi, eu blandit arcu cursus a. Pellentesque cursus massa id dolor ullamcorper, at condimentum nunc ultrices.</p>
-                                                <div class="d-flex gs8 gsx s-modal--footer">
-                                                    <button class="flex--item s-btn s-btn__primary" type="button">Save changes</button>
-                                                    <button class="flex--item s-btn" type="button" data-action="s-modal#hide">Cancel</button>
-                                                </div>
-                                                <button class="s-modal--close s-btn s-btn__muted js-modal-close" type="button" aria-label="Close" data-action="s-modal#hide">
-                                                    <svg aria-hidden="true" class="svg-icon iconClearSm" width="14" height="14" viewBox="0 0 14 14"><path d="M12 3.41 10.59 2 7 5.59 3.41 2 2 3.41 5.59 7 2 10.59 3.41 12 7 8.41 10.59 12 12 10.59 8.41 7 12 3.41Z"></path></svg>
-                                                </button>
-                                            </div>
-                                        </aside>
-                                        </div>
+                                        </aside>    
+                                    </div>
                                     `;
 
 
