@@ -2,9 +2,11 @@ body {
   width: 300px;
   min-height: 300px;
 }
+
 .fs-7 {
   font-size: 0.8rem !important;
 }
+
 .fs-8 {
   font-size: 0.65rem !important;
 }
@@ -23,7 +25,14 @@ body {
   color: rgb(246, 178, 107);
 }
 
-
 .form-control-color {
   padding: 0.125rem;
+}
+
+.form-select-xs {
+  padding-top: 0.13rem;
+  padding-bottom: 0.13rem;
+  padding-left: 0.5rem;
+  font-size: 0.775rem;
+  border-radius: 0.2rem;
 }

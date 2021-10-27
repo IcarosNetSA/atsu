@@ -42,7 +42,7 @@
         "https://*.com/*"
       ],
       "js": [
-        "src/js/document.js","src/js/stacks.min.js"
+        "src/js/document.js"
       ]
     }
   ],
@@ -53,9 +53,20 @@
     "bookmarks",
     "unlimitedStorage",
     "storage",
-    "cookies"
+    "cookies",
+    "scripting"
   ],
   "host_permissions": [
     "*://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/json/*.json"
+      ],
+      "matches": [
+        "https://*.com/*"
+      ]
+    }
   ]
 }

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 //add-comment-492923
-                
+
                 //aqui evaluar se la Cookies existe;
                 //aqui evaliar si la Cookies contiene los valores de los setting.
                 //colocar los valores guardado en los input.
