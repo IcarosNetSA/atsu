@@ -1,72 +1,75 @@
 {
-  "name": "ATSU",
-  "version": "1.0",
-  "description": "ATSU - Advanced Toolkit for StackOverflow Users",
-  "manifest_version": 3,
-  "author": [
-    {
-      "author1": {
-        "name": "Walter Nuñez",
-        "email": "icarosnet@gmail.com",
-        "secction": "ATSU - Toolkit"
-      },
-      "author2": {
-        "name": "Christian Velasquez",
-        "email": "christianvelasces@gmail.com",
-        "secction": "Base Kit Color & Features"
-      }
-    }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_popup": "src/html/popup.html",
-    "default_title": "ATSU - Advanced Toolkit for StackOverflow Users",
-    "default_icon": {
-      "32": "src/img/32.png",
-      "48": "src/img/48.png",
-      "64": "src/img/64.png",
-      "128": "src/img/128.png"
-    }
-  },
-  "icons": {
-    "32": "src/img/32.png",
-    "48": "src/img/48.png",
-    "64": "src/img/64.png",
-    "128": "src/img/128.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://*.com/*"
-      ],
-      "js": [
-        "src/js/document.js"
-      ]
-    }
-  ],
-  "permissions": [
-    "history",
-    "tabs",
-    "activeTab",
-    "bookmarks",
-    "unlimitedStorage",
-    "storage",
-    "cookies",
-    "scripting"
-  ],
-  "host_permissions": [
-    "*://*/*"
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "src/json/*.json"
-      ],
-      "matches": [
-        "https://*.com/*"
-      ]
-    }
-  ]
+    "manifest_version": 3,
+    "name": "ATSU",
+    "description": "ATSU - Advanced Toolkit for StackOverflow Users",
+    "version": "1.0",
+    "author": [
+        {
+            "author1": {
+                "name": "Walter Nuñez",
+                "email": "icarosnet@gmail.com",
+                "secction": "ATSU - Toolkit"
+            },
+            "author2": {
+                "name": "Christian Velasquez",
+                "email": "christianvelasces@gmail.com",
+                "secction": "Base Kit Color & Features"
+            }
+        }
+    ],
+    "icons": {
+        "32": "src/media/32.png",
+        "48": "src/media/48.png",
+        "64": "src/media/64.png",
+        "128": "src/media/128.png"
+    },
+    "permissions": [
+        "scripting",
+        "storage",
+        "unlimitedStorage",
+        "activeTab",
+        "tabs",
+        "history",
+        "bookmarks",
+        "cookies"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "src/html/guide.html",
+                "src/json/*.json",
+                "src/json/lang/*.json"
+            ],
+            "matches": [
+                "https://*.com/*"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "src/html/popup.html",
+        "default_title": "ATSU - Advanced Toolkit for StackOverflow Users",
+        "default_icon": {
+            "32": "src/media/32.png",
+            "48": "src/media/48.png",
+            "64": "src/media/64.png",
+            "128": "src/media/128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.com/*"
+            ],
+            "js": [
+                "src/js/document.js"
+            ],
+            "all_frames": true
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 body {
-  width: 300px;
-  min-height: 300px;
+  width: 350px;
+  min-height: 150px;
 }
 
 .fs-7 {
@@ -35,4 +35,14 @@ body {
   padding-left: 0.5rem;
   font-size: 0.775rem;
   border-radius: 0.2rem;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

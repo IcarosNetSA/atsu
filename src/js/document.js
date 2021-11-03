@@ -1,12 +1,117 @@
+window.onload = init;
+async function init() {
+    let uri = getC_Url();
+    chrome.runtime.sendMessage({ getUrlConfig: true }, (response) => {
+        if (typeof response.atsu_setting.uri_conf[uri] !== 'undefined') {
+
+            /**
+             * Set config to the current windows
+             */
+            let config = response.atsu_setting.uri_conf[uri];
+
+            if (config.enable) {
+
+                /**
+                 * enable Auto Post View
+                 */
+                if (config.new_post) {
+                    enableAutoPOST();
+                }
+
+                /**
+                 * enable Rich Comment in PostWebPage
+                 */
+                if (config.comment) {
+                    enableRichComments();
+                }
+
+                /**
+                 * enable lang Detection
+                 */
+                if (config.lang_dt) {
+                    enableLangDetection(config.lang_sel);
+                }
+
+                /**
+                 * enable absence of MRE
+                 */
+                if (config.mre) {
+                    enableMREDetection();
+                }
+
+                /**
+                 * enable absence of MRE
+                 */
+                if (config.post_fc) {
+                    enableDetectFullCodePost();
+                }
+
+                /**
+                 * enable High ligh link color
+                 */
+                if (config.colors) {
+                    enableHighLighColorLink(config.rgb_colors);
+                }
+
+            }
+
+        } else {
+            console.log('no hay configuracion para esta URL', response);
+        }
+    })
+};
+
+function getC_Url() {
+    let urlRegex = /(https?:\/\/[^/]*)/;
+    let url = window.location.href;
+    return url.match(urlRegex)[1];
+}
+
+
+function enableAutoPOST() {
+    console.log('enableAutoPOST');
+}
+
+function enableRichComments() {
+    console.log('enableRichComments');
+}
+
+function enableLangDetection(lang) {
+    console.log('enableLangDetection', lang);
+}
+
+function enableMREDetection() {
+    console.log('enableMREDetection');
+}
+
+function enableDetectFullCodePost() {
+    console.log('enableDetectFullCodePost');
+}
+
+function enableHighLighColorLink(rgb_colors) {
+    console.log('enableHighLighColorLink', rgb_colors);
+    setColorLink([rgb_colors.normal, rgb_colors.visited, rgb_colors.closed]);
+}
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+    console.log(msg)
     if (msg.hasOwnProperty('setcolors')) {
         console.log('%c ATSU is coloring the links of this URL.', 'color: #f6b26b');
-        setColorLink(msg.setcolors);
+        window.setColorLink(msg.setcolors);
     }
+    if (msg.hasOwnProperty('removecolors')) {
+        console.log('%c ATSU is removing the colors of the links of this URL.', 'color: #f6b26b');
+        window.removeColorsLink();
+    }
+    if (msg.hasOwnProperty('reload')) {
+        console.log('%c ATSU Refreshing the website.', 'color: #f6b26b');
+        window.location.reload();
+    }
+    return false;
 });
 
 function setColorLink(setColors) {
+
     var style = document.createElement('style');
     style.setAttribute('id', 'atsu-style');
 
@@ -47,203 +152,20 @@ function setColorLink(setColors) {
     });
 }
 
-function isNumeric(str) {
-    if (typeof str != "string") { return false; }
-    return !isNaN(str) && !isNaN(parseFloat(str));
-}
+function removeColorsLink() {
 
-var post_url_data = window.location.href.split('/');
-var post_id = post_url_data[4];
+    var elementExists = document.getElementById("atsu-style");
 
-if (typeof post_id !== 'undefined') {
-    if (isNumeric(post_id)) {
-        var post_tittle = post_url_data[5].replaceAll('-', ' ');
-        console.log('ATSU is Working in POST: ' + post_id + ' ' + post_tittle);
-
-
-        // Select the node that will be observed for mutations
-        const targetNode = document.getElementById('add-comment-' + post_id);
-
-        // Options for the observer (which mutations to observe)
-        const config = { attributes: true, childList: true, subtree: true };
-
-        // Callback function to execute when mutations are observed
-        const callback = function (mutationsList, observer) {
-            // Use traditional 'for loops' for IE 11
-            for (const mutation of mutationsList) {
-                if ('s-btn s-btn__primary' == mutation.target.className) {
-
-                    let list = document.getElementsByClassName('js-comment-help-link s-btn s-btn__link ta-left px2');
-
-
-                    let atsu_btn = `
-                                    <button 
-                                    type="button" 
-                                    class="s-btn js-modal-open" 
-                                    id="atsu-post-comment"
-                                    data-togle="s-modal"
-                                    data-target="#atsu-modal"
-                                    style="margin-top:5px; border: 3px solid rgb(246, 178, 107); color: rgb(194, 123, 160); font-style: italic;">
-                                    Auto Com. &amp; Help
-                                    </button>
-                    
-                    
-                                    <div data-controller="s-modal" data-s-modal-return-element="#atsu-post-comment">
-                                        <aside class="s-modal" id="atsu-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true" data-controller="s-modal" data-s-modal-target="modal" data-s-modal-return-element=".js-modal-open[data-target='#atsu-modal']" data-s-modal-remove-when-hidden="false" data-joder="1">
-                                            <div class="s-modal--dialog wmn8 hmn5" role="document">
-                                                <h1 class="s-modal--header" id="modal-title">Selection and Configuration Automatic Comments.</h1>
-                                                <div class="s-modal--body hs5" id="modal-description">
-
-                                                    <nav>
-                                                        <ul class="s-navigation" role="tablist" data-controller="s-navigation-tablist">
-                                                            <li>
-                                                                <button type="button"
-                                                                        role="tab"
-                                                                        id="tab-question"
-                                                                        aria-selected="true"
-                                                                        aria-controls="panel-question"
-                                                                        class="s-navigation--item is-selected">Comments for Questions</button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button"
-                                                                        role="tab"
-                                                                        id="tab-answers"
-                                                                        aria-selected="false"
-                                                                        aria-controls="panel-answers"
-                                                                        tabindex="-1"
-                                                                        class="s-navigation--item">Comments for Answers</button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button"
-                                                                        role="tab"
-                                                                        id="tab-comment-setting"
-                                                                        aria-selected="false"
-                                                                        aria-controls="panel-comment-setting"
-                                                                        tabindex="-1"
-                                                                        class="s-navigation--item">Setting</button>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
-                                                    
-                                                    <div id="panel-question" aria-labelledby="tab-question" class="d-flex hs5">
-                                                        Comments for question.
-
-                                                    </div>
-                                                    
-                                                    <div id="panel-answers" aria-labelledby="tab-answers" class="d-none d-flex hs5">
-                                                        Comments for Answers
-                                                    </div>
-                                                    <div id="panel-comment-setting" aria-labelledby="tab-comment-setting" class="d-none d-flex hs5">
-
-                                                        <div class="d-flex flex--item gs8 gsx as-end">
-                                                            <button class="flex--item s-btn s-btn__primary" type="button">Save Setting ATSU</button>
-                                                            <button class="flex--item s-btn" type="button" data-action="s-modal#hide">Cancel</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </aside>    
-                                    </div>
-                                    `;
-
-
-                    mutation.target.insertAdjacentHTML('afterend', atsu_btn);
-
-                    let help = document.getElementsByClassName('js-comment-help-link');
-                    help[0].style.display = "none";
-                    help[0].style.visibility = "hidden";
-                    let comment_input = document.getElementsByClassName('s-textarea js-comment-text-input');
-                    comment_input[0].rows = "5";
-
-                    document.querySelector("#atsu-post-comment").addEventListener("click", function (e) {
-                        Stacks.showModal(document.querySelector("#atsu-modal"));
-                    });
-
-
-                    //obtenemos el POST
-
-                    /*
-                    let post = document.getElementsByClassName('s-prose js-post-body');
-                    var p_char = 0;
-                    var c_char = 0;
-                    let post_content = post[0].children;
-                    Array.from(post_content).forEach((elem) => {
-                        let tag = elem.tagName;
-                        switch (tag) {
-                            case 'P':
-                                p_char += elem.textContent.length;
-                                break;
-                            case 'PRE':
-                                let seek_code = elem.children;
-                                Array.from(seek_code).forEach((subelem) => {
-                                    let tag = subelem.tagName;
-                                    if (tag == 'CODE') {
-                                        c_char += subelem.textContent.length;
-                                    }
-                                });
-                                break;
-                        }
-                    });
-
-
-
-                    //Analisis POST:
-
-                    if (p_char <= 25) {
-                        //parece que le falta una mejor explicacion.
-                    }
-                    if (c_char <= 25) {
-                        //parece que le falta una mejor Codigo.
-                    }
-                    if ((c_char + p_char) <= 100) {
-                        //parece que span.
-                    }
-
-                    /*
-                    .each(elem=>{
-                        console.log(elem);
-                    });
-                    */
-
-
-
-                    //new-contributor-indicator
-
-
-                    this.disconnect();
-                }
-            }
-        };
-
-        // Create an observer instance linked to the callback function
-
-
-        // Start observing the target node for configured mutations
-
-        if (targetNode instanceof HTMLElement) {
-            const observer = new MutationObserver(callback);
-            observer.observe(targetNode, config);
-        }
-
-
-        // Later, you can stop observing
-        //observer.disconnect();
-
-
-        /*
-        
-        let comments_link = document.getElementsByClassName("js-add-link");
-        comments_link[0].addEventListener('click', event => {
-
-        });
-        */
-
-
+    if (elementExists) {
+        elementExists.remove();
     }
+
+    var links_questions = Object.values(document.getElementsByClassName("question-hyperlink"));
+
+    links_questions.forEach(link => {
+        let title = link.innerHTML
+        if (title.indexOf('[cerrada]') !== -1) {
+            link.style.color = null;
+        }
+    });
 }
-
-
-
-
-
-
