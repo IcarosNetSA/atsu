@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 config.new_post = atsu_new_post.checked;
                 config.comment = atsu_comment.checked;
                 config.lang_dt = atsu_lang_dt.checked;
-                if (atsu_lang_dt.checked) {
+                if (atsu_lang_dt.checked && typeof atsu_lang_sel.options[atsu_lang_sel.selectedIndex] !== 'undefined') {
                     config.lang_sel = atsu_lang_sel.options[atsu_lang_sel.selectedIndex].value;
                 }
                 config.mre = atsu_mre.checked;

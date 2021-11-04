@@ -44,13 +44,17 @@
             "resources": [
                 "src/html/guide.html",
                 "src/json/*.json",
-                "src/json/lang/*.json"
+                "src/json/lang/*.json",
+                "src/sound/received_post.mp3"
             ],
             "matches": [
                 "https://*.com/*"
             ]
         }
     ],
+
+
+
     "action": {
         "default_popup": "src/html/popup.html",
         "default_title": "ATSU - Advanced Toolkit for StackOverflow Users",
@@ -68,8 +72,7 @@
             ],
             "js": [
                 "src/js/document.js"
-            ],
-            "all_frames": true
+            ]
         }
     ]
 }

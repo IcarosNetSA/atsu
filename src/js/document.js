@@ -1,3 +1,27 @@
+
+class metaverse {
+
+    e_click = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+
+    injectElement = () => {
+
+    }
+
+    showNewPost = (mutation, c_this) => {
+        let element = document.querySelector("a.s-btn.d-block");
+        if(element != null){
+            element.dispatchEvent(this.e_click);
+            var myAudio = new Audio(chrome.runtime.getURL("src/sound/received_post.mp3"));
+            myAudio.play();
+        }
+    }
+}
+
+
 window.onload = init;
 async function init() {
     let uri = getC_Url();
@@ -54,7 +78,6 @@ async function init() {
                 }
 
             }
-
         } else {
             console.log('no hay configuracion para esta URL', response);
         }
@@ -70,6 +93,8 @@ function getC_Url() {
 
 function enableAutoPOST() {
     console.log('enableAutoPOST');
+    let element = document.getElementById('question-mini-list');
+    cronodetector(element, 'showNewPost');
 }
 
 function enableRichComments() {
@@ -145,8 +170,9 @@ function setColorLink(setColors) {
     var links_questions = Object.values(document.getElementsByClassName("question-hyperlink"));
 
     links_questions.forEach(link => {
-        let title = link.innerHTML
-        if (title.indexOf('[cerrada]') !== -1) {
+        const special_post = ['[cerrada]', '[closed]', '[duplicada]', 'duplicated'];
+        let title = link.innerHTML;
+        if (special_post.some(v => title.includes(v))) {
             link.style.color = setColors[2];
         }
     });
@@ -163,9 +189,32 @@ function removeColorsLink() {
     var links_questions = Object.values(document.getElementsByClassName("question-hyperlink"));
 
     links_questions.forEach(link => {
-        let title = link.innerHTML
-        if (title.indexOf('[cerrada]') !== -1) {
+        const special_post = ['[cerrada]', '[closed]', '[duplicada]', 'duplicated'];
+        let title = link.innerHTML;
+        if (special_post.some(v => title.includes(v))) {
             link.style.color = null;
         }
     });
+}
+
+function cronodetector(element, functionName) {
+    let mt = new metaverse();
+    // Select the node that will be observed for mutations
+    const targetNode = element; //document.getElementById('add-comment-' + post_id);
+    // Options for the observer (which mutations to observe)
+    const config = { attributes: false, childList: true, subtree: false };
+    // Callback function to execute when mutations are observed
+    const callback = function (mutationsList, observer) {
+        // Use traditional 'for loops' for IE 11
+        for (const mutation of mutationsList) {
+            mt[functionName](mutation, this);
+            //injectElement(mutation, this);
+        }
+    };
+    // Create an observer instance linked to the callback function
+    // Start observing the target node for configured mutations
+    if (targetNode instanceof HTMLElement) {
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+    }
 }
