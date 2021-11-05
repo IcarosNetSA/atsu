@@ -14,6 +14,14 @@
                 "name": "Christian Velasquez",
                 "email": "christianvelasces@gmail.com",
                 "secction": "Base Kit Color & Features"
+            },
+            "author3": {
+                "name": "Gonzalo Bianchi",
+                "secction": "Programming Coach at SOes"
+            },
+            "author4": {
+                "name": "SE Modetator Teams",
+                "secction": "Project Support and Feasibility and Special Features"
             }
         }
     ],

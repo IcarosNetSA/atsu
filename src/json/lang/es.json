@@ -1,0 +1,11 @@
+{
+    "atsu_sugestion":"ATSU - Sugerencia!",
+    "qa": {
+        "content": "Parece carecer de una buena explicación",
+        "post": "Parece faltar un código o un Ejemplo Minimo Reproducible",
+        "spam": "¡Aparentemente, esta publicación puede ser spam!",
+        "noformatcode": "¡Aparentemente, esta publicación contiene código sin formato!",
+        "notlang1": "¡Aparentemente, esta publicación no está en el idioma aceptado!; Lenguaje definido: ",
+        "notlang2": "¡Aparentemente, esta publicación contiene información en un idioma diferente al aceptado!; Lenguaje definido: "
+    }
+}
