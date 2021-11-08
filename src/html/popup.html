@@ -10,112 +10,186 @@
 </head>
 
 <body class="dark-theme">
-    <h1 class="fs-4 fw-bold m-2">Wellcome to ATSU!</h1>
-    <div id="introduction" class="fst-italic m-2 fs-8">
-        ATSU is the acronym of Advanced Toolkit for Stack Overflow Users.
-    </div>
-    <hr class="mb-1 mt-1" />
     <div class="container">
-
-        <div class="bd-example">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="act-url">
-                <label class="form-check-label fs-7"> Activate ATSU on this page?</label>
-            </div>
-        </div>
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-new-post" checked>
-                <label class="form-check-label fs-7">Enable Show New Posts?</label>
-            </div>
-        </div>
-
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-comment" checked>
-                <label class="form-check-label fs-7">Enable Rich Comments?</label>
-            </div>
-        </div>
-
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-lang-dt" checked>
-                <label class="form-check-label fs-7">Enable POST Language Detection?</label>
-                <select class="form-select form-select-xs d-inline-flex w-auto" id="atsu-lang-sel">
-                    <option value="EN" selected>EN</option>
-                    <option value="ES">ES</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-mre" checked>
-                <label class="form-check-label fs-7">Detect absence of MRE?</label>
-            </div>
-        </div>
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-post-fc" checked>
-                <label class="form-check-label fs-7">Detect full code POST?</label>
-            </div>
-        </div>
-
-        <div class="bd-example atsu-options collapse">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="atsu-hl-post"
-                    data-bs-toggle="collapse" data-bs-target="#atsu-colors" aria-expanded="false"
-                    aria-controls="atsu-colors" checked>
-                <label class="form-check-label fs-7">Enable Highlighting of POST Visited?</label>
-            </div>
-        </div>
-        <div class="bd-example mb-2 collapse" id="atsu-colors">
-            <div class="row text-center">
-                <div class="col">
-                    <label class="form-label">Normal</label>
-                    <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-normal"
-                        value="#c27ba0" title="Choose your color">
+        <div class="row">
+            <div class="col-6">
+                <h1 class="fs-4 fw-bold m-2">Wellcome to ATSU!</h1>
+                <div class="fst-italic m-2 fs-8 sub-title">
+                    ATSU is the acronym of Advanced Toolkit for Stack Overflow Users.
                 </div>
-                <div class="col">
-                    <label class="form-label">Visited</label>
-                    <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-visited"
-                        value="#f6b26b" title="Choose your color">
-                </div>
-                <div class="col">
-                    <label class="form-label">Closed</label>
-                    <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-closed"
-                        value="#b5adaa" title="Choose your color">
+            </div>
+            <div class="col-6">
+                <h1 class="fs-4 fw-bold m-2">Free Premiun Features</h1>
+                <div class="fst-italic m-2 fs-8 sub-title">
+                    Requires Registration and Keys, Improve the tool with Statistics and SE API.
                 </div>
             </div>
         </div>
-    </div>
-    <hr class="mb-1 mt-1 atsu-options collapse" />
-    <div class="container atsu-options collapse">
-        <button type="button" class="btn btn-outline-success btn-sm" id="atsu-apply">Save for this URL</button>
-        <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-cancel">Cancel</button>
-        <label id="atsu-not-save" class="text-danger blink_me"></label>
-    </div>
-    <hr class="mb-1 mt-1" />
-    <div class="container">
-        <div class="bd-example mb-2 mt-2">
-            <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option value="1">White</option>
-                    <option value="2">Dark</option>
-                    <option value="3" selected>ATSU</option>
-                </select>
-                <label for="floatingSelect">Select theme for ATSU</label>
+
+        <hr class="mb-1 mt-1" />
+
+        <div class="row">
+            <div class="col-6">
+                <div class="bd-example">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="act-url">
+                        <label class="form-check-label fs-7"> Activate ATSU on this page?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-new-post" checked>
+                        <label class="form-check-label fs-7">Enable Show New Posts?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-comment" checked>
+                        <label class="form-check-label fs-7">Enable Rich Comments?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-lang-dt" checked>
+                        <label class="form-check-label fs-7">Enable POST Language Detection?</label>
+                        <select class="form-select form-select-xs d-inline-flex w-auto" id="atsu-lang-sel">
+                            <option value="EN" selected>EN</option>
+                            <option value="ES">ES</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-mre" checked>
+                        <label class="form-check-label fs-7">Detect absence of MRE?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-post-fc" checked>
+                        <label class="form-check-label fs-7">Detect full code POST?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-hl-post"
+                            data-bs-toggle="collapse" data-bs-target="#atsu-colors" aria-expanded="false"
+                            aria-controls="atsu-colors" checked>
+                        <label class="form-check-label fs-7">Enable Highlighting of POST Visited?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example mb-2 collapse" id="atsu-colors">
+                    <div class="row text-center">
+                        <div class="col">
+                            <label class="form-label">Normal</label>
+                            <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-normal"
+                                value="#c27ba0" title="Choose your color">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Visited</label>
+                            <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-visited"
+                                value="#f6b26b" title="Choose your color">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Closed</label>
+                            <input type="color" class="form-control form-control-color mx-auto" id="atsu-color-closed"
+                                value="#b5adaa" title="Choose your color">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-2 mt-2 atsu-options collapse" />
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="fst-italic m-2 fs-7 sub-title ">
+                        Premiun Options (Require Free Premiun Keys).
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-preview-qa" disabled>
+                        <label class="form-check-label fs-7">Enable Preview Quality POST?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-track-vote" disabled>
+                        <label class="form-check-label fs-7">Enable tracking your Negative Vote?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-track-vote" disabled>
+                        <label class="form-check-label fs-7">Enable Automatic Add Comment Selected?</label>
+                    </div>
+                </div>
+
+                <hr class="mb-2 mt-1 atsu-options collapse" />
+
+                <div class="bd-example atsu-options collapse">
+                    <button type="button" class="btn btn-outline-danger btn-sm blink_me" id="atsu-apply">Save for this
+                        URL</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-cancel">Cancel</button>
+                    <label id="atsu-not-save" class="text-danger blink_me"></label>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <hr class="mb-1 mt-1" />
-    <p class="text-start m-2 fs-7"><b>Note:</b> If you are interested in not losing the configuration of this extension,
-        you can associate it with your google account.</p>
-    <div class="container mb-2">
-        <div class="bd-example">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="st-setting">
-                <label class="form-check-label fs-7" for="flexSwitchCheckDefault"> Activate Store Setting Sync?</label>
+            <div class="col-6">
+
+                <div class="bd-example row">
+                    <label for="inputPassword" class="col-sm-12 col-form-label fs-7">Stack Application key, <a>get it
+                            here.</a></label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="atsu-key">
+                    </div>
+                </div>
+
+                <div class="bd-example row">
+                    <label for="inputPassword" class="col-sm-12 col-form-label fs-7">Atsu Application key, <a>get it
+                            here.</a></label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="atsu-stack-key">
+                    </div>
+                </div>
+
+                <hr class="mb-2 mt-2" />
+
+                <div class="bd-example">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="st-setting" disabled>
+                        <label class="form-check-label fs-7" for="flexSwitchCheckDefault"> Activate Store Setting
+                            Sync?</label>
+                    </div>
+                </div>
+
+                <p class="text-start m-2 fs-7"><b>Note:</b> If you are interested in not losing the configuration of
+                    this extension, you can associate it with your google account.</p>
+
+                <hr class="mb-2 mt-2" />
+
+                <div class="bd-example">
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="atsu-apply">Save Key and Sync
+                        Setting</button>
+                    <label id="atsu-not-save-key" class="text-danger blink_me"></label>
+                </div>
+
+                <hr class="mb-2 mt-2" />
+
+                <div class="bd-example mb-3">
+                    <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-documentation">Visit
+                        the tool's documentation here.</button>
+                </div>
+
             </div>
         </div>
     </div>

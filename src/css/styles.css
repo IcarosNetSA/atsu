@@ -1,14 +1,6 @@
 body {
-  width: 350px;
-  min-height: 150px;
-}
-
-.fs-7 {
-  font-size: 0.8rem !important;
-}
-
-.fs-8 {
-  font-size: 0.65rem !important;
+  width: 780px;
+  min-height: 325px;
 }
 
 .dark-theme {
@@ -20,9 +12,22 @@ body {
   color: rgb(246, 178, 107);
 }
 
-.dark-theme #introduction {
+.sub-title {
   font-style: italic;
   color: rgb(246, 178, 107);
+}
+
+.container {
+  margin: 0px 0px 10px 0px;
+  max-width: 100%;
+}
+
+.fs-7 {
+  font-size: 0.8rem !important;
+}
+
+.fs-8 {
+  font-size: 0.65rem !important;
 }
 
 .form-control-color {
@@ -39,6 +44,14 @@ body {
 
 .blink_me {
   animation: blinker 1s linear infinite;
+}
+
+a {
+  font-family: Calibri;
+  font-weight: bold;
+  font-style: italic;
+  color: rgb(246, 178, 107) !important;
+  text-decoration: underline !important;
 }
 
 @keyframes blinker {

@@ -1,4 +1,5 @@
-
+var enableSound = false;
+var debug = true;
 class metaverse {
 
     e_click = new MouseEvent('click', {
@@ -29,7 +30,14 @@ class metaverse {
 
         if (element != null) {
 
+            this.playSound();
             element.dispatchEvent(this.e_click);
+
+        }
+    }
+
+    playSound = () => {
+        if (enableSound) {
 
             var myAudio = new Audio(chrome.runtime.getURL("src/sound/received_post.mp3"));
             myAudio.play();
@@ -37,47 +45,66 @@ class metaverse {
         }
     }
 
+    /**
+     * play sound for test purpouse
+     */
+
+    playSoundStart = () => {
+        console.log(enableSound);
+        if (enableSound) {
+
+            // var myAudio = new Audio(chrome.runtime.getURL("src/sound/start.mp3"));
+            // myAudio.play();
+
+        }
+    }
+
     PostAnal = (l_set) => {
         return new Promise((resolve) => {
-            console.log(this.translate);
+
             var mined = {};
             let post = document.getElementsByClassName('s-prose js-post-body');
+
             let p_char = 0;
             let c_char = 0;
+            let c_img = 0;
 
             if (typeof post[0] !== 'undefined') {
 
-                let post_content = post[0].children;
                 let post_content_exp = '';
 
-                Array.from(post_content).forEach((elem) => {
-                    let tag = elem.tagName;
-                    switch (tag) {
-                        case 'P':
-                            post_content_exp += ' ' + elem.textContent;
-                            p_char += elem.textContent.length;
-                            break;
-                        case 'PRE':
-                            let seek_code = elem.children;
-                            Array.from(seek_code).forEach((subelem) => {
-                                let tag = subelem.tagName;
-                                if (tag == 'CODE') {
-                                    c_char += subelem.textContent.length;
-                                }
-                            });
-                            break;
-                    }
-                });
+                let data = this.evaluateNodePost(post[0]);
 
-                if (p_char <= 25) {
-                    mined.content = this.translate.qa.content;
+                p_char = data.p_char;
+                c_char = data.c_char;
+                c_img = data.c_img;
+                post_content_exp = data.exp;
+
+                if (!post_content_exp.replace(/\s/g, '').length) {
+                    post_content_exp = '';
                 }
 
-                if (c_char <= 25) {
-                    mined.post = this.translate.qa.post;// "Seems to be missing a better Code/MRE";
+                /**
+                 * Analisis content Post and User
+                 */
+
+                if(this.evalPostOwner()<30){
+                    mined.newuser = this.translate.qa.newuser;
                 }
 
-                if ((c_char + p_char) <= 100) {
+                if (p_char > 40 && p_char < 130) {
+                    mined.content = this.translate.qa.content1;
+                } else if (p_char < 40) {
+                    mined.content = this.translate.qa.content2;
+                }
+
+                if (c_char == 0) {
+                    mined.post = this.translate.qa.post1;
+                } else if (c_char < 50) {
+                    mined.post = this.translate.qa.post2;
+                }
+
+                if ((c_char + p_char) < 130) {
                     mined.spam = this.translate.qa.spam; //"Apparently this post may be spam!";
                 }
 
@@ -89,7 +116,10 @@ class metaverse {
                 newStringSC = newStringSC.replaceAll(/\s/g, '');
                 let spchar_count = newStringSC.length;
 
-                console.log(p_char, c_char, char_count, spchar_count);
+                console.log(data);
+                console.log('p_char: ' + p_char, 'c_char: ' + c_char, 'post_content_exp: ' + post_content_exp);
+                console.log('char_count: ' + char_count, 'spchar_count: ' + spchar_count);
+                console.log(mined);
 
                 let interpreter = parseInt((spchar_count * 100) / char_count);
                 console.log(c_char, interpreter);
@@ -98,38 +128,153 @@ class metaverse {
                     mined.noformatcode = this.translate.qa.noformatcode; //"Apparently this post contains raw code!";
                 }
 
-                let defined_lan = (l_set == 'es') ? 'Español' : 'English';
+                if ((c_char == 0 || p_char == 0) && c_img > 0) {
+                    mined.onlyimg = this.translate.qa.onlyimg; //"Apparently this post contains raw code!";
+                }
 
-                chrome.i18n.detectLanguage(post_content_exp, (result) => {
+                if (post_content_exp > 0) {
+                    let defined_lan = (l_set == 'es') ? 'Español' : 'English';
 
-                    let lang = {};
-                    lang.rel = result.isReliable;
-                    lang.exp = {};
+                    chrome.i18n.detectLanguage(post_content_exp, (result) => {
 
-                    for (var i = 0; i < result.languages.length; i++) {
-                        lang.exp[result.languages[i].language] = result.languages[i].percentage;
-                    }
+                        let lang = {};
+                        lang.rel = result.isReliable;
+                        lang.exp = {};
 
-                    mined.a_lang = lang;
+                        for (var i = 0; i < result.languages.length; i++) {
+                            lang.exp[result.languages[i].language] = result.languages[i].percentage;
+                        }
 
-                    if (typeof lang.exp[l_set] == 'undefined') {
+                        mined.a_lang = lang;
 
-                        mined.notlang = this.translate.qa.notlang1;//'Apparently this post is not in the Accepted Language!; defined Laguage: ' + defined_lan;
+                        if (typeof lang.exp[l_set] == 'undefined') {
 
-                    } else if (lang.exp.es < 60) {
+                            mined.notlang = this.translate.qa.notlang1;//'Apparently this post is not in the Accepted Language!; defined Laguage: ' + defined_lan;
 
-                        mined.notlang = this.translate.qa.notlang2;//'Apparently, this publication contains information in a language other than the accepted one!; defined Laguage: ' + defined_lan;
+                        } else if (lang.exp.es < 60) {
 
-                    }
+                            mined.notlang = this.translate.qa.notlang2;//'Apparently, this publication contains information in a language other than the accepted one!; defined Laguage: ' + defined_lan;
+
+                        }
+
+                        this.a_post = mined;
+
+                        resolve(true);
+                    });
+                } else {
+
 
                     this.a_post = mined;
 
                     resolve(true);
-                });
+                }
+
+
             }
         });
 
     }
+
+    evalPostOwner = () => {
+        let own = document.body.querySelector(".post-signature.owner");
+        let points = 0;
+        if (own !== null) {
+            let owner_detail = own.querySelector(".reputation-score");
+            let raw_point = owner_detail.textContent;
+            raw_point = raw_point.replace(/,/g, '');
+            const expo = ['k', 'm'];
+            if (expo.some(v => raw_point.includes(v))) {
+                if (v == 'k') {
+                    points = parseInt(raw_point.replace(/\D/g, "")) * 1000;
+                } else {
+                    points = parseInt(raw_point.replace(/\D/g, "")) * 1000000;
+                }
+            } else {
+                points = parseInt(raw_point.replace(/\D/g, ""));
+            }
+        }
+        return points;
+    }
+
+
+    evaluateNodePost = (element) => {
+
+        let result = { p_char: 0, c_char: 0, c_img: 0, exp: '' };
+        var c_this = this;
+
+        NodeList.prototype.forEach = Array.prototype.forEach
+        var children = element.childNodes;
+
+        children.forEach(function (item) {
+            if (typeof item.tagName !== 'undefined') {
+                //console.log(item.childElementCount, item.textContent.length, item, item.tagName);
+                console.log(item.tagName);
+                if (item.childElementCount >= 1 && item.tagName !== 'PRE' && item.tagName !== 'EM') {
+                    result = c_this.countCharacters(result, item);
+                    let node = c_this.evaluateNodePost(item);
+                    result.p_char += node.p_char;
+                    result.c_char += node.c_char;
+                    result.c_img += node.c_img;
+                    result.exp += ' ' + node.exp;
+                } else {
+                    result = c_this.countCharacters(result, item);
+                }
+            }
+        });
+
+        return result;
+
+    }
+
+    countCharacters = (result, item) => {
+        let seek_code = null;
+        switch (item.tagName) {
+            case 'P':
+                result.exp += ' ' + item.textContent;
+                result.p_char += item.textContent.length;
+                seek_code = item.children;
+                Array.from(seek_code).forEach((subelem) => {
+                    let tag = subelem.tagName;
+                    if (tag == 'IMG') {
+                        result.c_img++;
+                    }
+                });
+                break;
+            case 'STRONG':
+                result.exp += ' ' + item.textContent;
+                result.p_char += item.textContent.length;
+                break;
+
+            case 'EM':
+                result.exp += ' ' + item.textContent;
+                result.p_char += item.textContent.length;
+                break;
+
+            case 'PRE':
+                seek_code = item.children;
+                Array.from(seek_code).forEach((subelem) => {
+                    let tag = subelem.tagName;
+                    if (tag == 'CODE') {
+                        result.c_char += subelem.textContent.length;
+                    }
+                });
+                break;
+            case 'BLOCKQUOTE':
+                result.exp += ' ' + item.textContent;
+                result.p_char += item.textContent.length;
+                result.c_char += item.textContent.length;
+                break;
+
+            case 'IMG':
+                result.c_img++;
+                break;
+        }
+        return result;
+    }
+
+
+
+
 
     injectElement = (mutation, c_this) => {
 
@@ -137,10 +282,23 @@ class metaverse {
 
 }
 
-
 window.onload = init;
 async function init() {
+    /**
+     * to enable play sound
+     */
+
     let uri = getC_Url();
+    var mt = new metaverse();
+    document.body.addEventListener("click", function () {
+
+        enableSound = true;
+
+        mt.playSoundStart();
+
+    }, { once: true });
+
+
     chrome.runtime.sendMessage({ getUrlConfig: true }, (response) => {
         if (typeof response.atsu_setting.uri_conf[uri] !== 'undefined') {
 
@@ -151,7 +309,7 @@ async function init() {
 
             if (config.enable) {
 
-                let mt = new metaverse();
+
                 var l_set = config.lang_sel.toLowerCase();
                 mt.getLangSetting(l_set).then(() => {
 
@@ -203,6 +361,8 @@ async function init() {
                         qa_post += enableDetectFullCodePost(mt);
                     }
 
+                    console.log(config, qa_post);
+
                     qa_post += postquality(mt);
 
                     if (qa_post != '') {
@@ -226,7 +386,10 @@ async function init() {
         } else {
             console.log('no hay configuracion para esta URL', response);
         }
-    })
+    });
+
+
+
 };
 
 function getC_Url() {
@@ -243,7 +406,9 @@ function enableAutoPOST() {
 }
 
 function enableRichComments() {
-    console.log('enableRichComments');
+    console.log('Enable Rich Comments');
+    let element = document.getElementById('question-mini-list');
+    cronodetector(element, 'showNewPost');
 }
 
 function enableLangDetection(mt) {
@@ -261,7 +426,7 @@ function enableLangDetection(mt) {
                             </svg>
                         </div>
                         <div class="flex--item wmn0 ow-break-word">
-                            <span class="js-gps-track" id="atsu-notlang">` + mt.a_post.notlang + `</span>
+                            <span class="js-gps-track fc-danger" id="atsu-notlang">` + mt.a_post.notlang + `</span>
                         </div>
                     </li>`;
     }
@@ -284,7 +449,7 @@ function enableMREDetection(mt) {
                             </svg>
                         </div>
                         <div class="flex--item wmn0 ow-break-word">
-                            <span class="js-gps-track" id="atsu-post-mre">` + mt.a_post.post + `</span>
+                            <span class="js-gps-track fc-danger" id="atsu-post-mre">` + mt.a_post.post + `</span>
                         </div>
                     </li>`;
     }
@@ -297,8 +462,10 @@ function enableDetectFullCodePost(mt) {
 
     let content = '';
 
+    console.log(mt.a_post, mt.a_post.content);
+
     if (typeof mt.a_post.content !== 'undefined') {
-        post = `<li class="s-sidebarwidget--item d-flex px16">
+        content = `<li class="s-sidebarwidget--item d-flex px16">
                     <div class="flex--item1 fl-shrink0">
                         <svg aria-hidden="true" class="va-text-top svg-icon iconPencilSm" width="14" height="14"
                             viewBox="0 0 14 14">
@@ -308,7 +475,7 @@ function enableDetectFullCodePost(mt) {
                         </svg>
                     </div>
                     <div class="flex--item wmn0 ow-break-word">
-                        <span class="js-gps-track" id="atsu-post-fc">` + mt.a_post.content + `</span>
+                        <span class="js-gps-track fc-danger" id="atsu-post-fc">` + mt.a_post.content + `</span>
                     </div>
                 </li>`;
     }
@@ -319,6 +486,12 @@ function enableDetectFullCodePost(mt) {
 function postquality(mt) {
 
     let noformatcode = '';
+
+    let spam = '';
+
+    let images = '';
+
+    let newuser = '';
 
     if (typeof mt.a_post.noformatcode !== 'undefined') {
         noformatcode = `<li class="s-sidebarwidget--item d-flex px16">
@@ -331,12 +504,10 @@ function postquality(mt) {
                                 </svg>
                             </div>
                             <div class="flex--item wmn0 ow-break-word">
-                                <span class="js-gps-track" id="atsu-noformatcode">` + mt.a_post.noformatcode + `</span>
+                                <span class="js-gps-track fc-danger" id="atsu-noformatcode">` + mt.a_post.noformatcode + `</span>
                             </div>
                         </li>`;
     }
-
-    let spam = '';
 
     if (typeof mt.a_post.spam !== 'undefined') {
         spam = `<li class="s-sidebarwidget--item d-flex px16">
@@ -349,12 +520,44 @@ function postquality(mt) {
                         </svg>
                     </div>
                     <div class="flex--item wmn0 ow-break-word">
-                        <span class="js-gps-track" id="atsu-spam">` + mt.a_post.spam + `</span>
+                        <span class="js-gps-track fc-danger" id="atsu-spam">` + mt.a_post.spam + `</span>
                     </div>
                 </li>`;
     }
 
-    return noformatcode + spam;
+    if (typeof mt.a_post.onlyimg !== 'undefined') {
+        images = `<li class="s-sidebarwidget--item d-flex px16">
+                    <div class="flex--item1 fl-shrink0">
+                        <svg aria-hidden="true" class="va-text-top svg-icon iconPencilSm" width="14" height="14"
+                            viewBox="0 0 14 14">
+                            <path
+                                d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="flex--item wmn0 ow-break-word">
+                        <span class="js-gps-track fc-danger" id="atsu-spam">` + mt.a_post.onlyimg + `</span>
+                    </div>
+                </li>`;
+    }
+
+    if (typeof mt.a_post.newuser !== 'undefined') {
+        newuser = `<li class="s-sidebarwidget--item d-flex px16">
+                    <div class="flex--item1 fl-shrink0">
+                        <svg aria-hidden="true" class="va-text-top svg-icon iconPencilSm" width="14" height="14"
+                            viewBox="0 0 14 14">
+                            <path
+                                d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="flex--item wmn0 ow-break-word">
+                        <span class="js-gps-track fc-danger" id="atsu-spam">` + mt.a_post.newuser + `</span>
+                    </div>
+                </li>`;
+    }
+
+    return noformatcode + spam + images + newuser;
 }
 
 function enableHighLighColorLink(rgb_colors) {
@@ -363,7 +566,6 @@ function enableHighLighColorLink(rgb_colors) {
 }
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-    console.log(msg)
 
     if (msg.hasOwnProperty('setcolors')) {
         console.log('%c ATSU is coloring the links of this URL.', 'color: #f6b26b');
@@ -381,6 +583,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     }
 
     return false;
+
 });
 
 function setColorLink(setColors) {

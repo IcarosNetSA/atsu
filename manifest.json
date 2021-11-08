@@ -53,7 +53,9 @@
                 "src/html/guide.html",
                 "src/json/*.json",
                 "src/json/lang/*.json",
-                "src/sound/received_post.mp3"
+                "src/sound/received_post.mp3",
+                "src/sound/start.mp3"
+
             ],
             "matches": [
                 "https://*.com/*"
