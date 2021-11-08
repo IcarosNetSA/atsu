@@ -129,14 +129,30 @@
 
                 <div class="bd-example atsu-options collapse">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-track-vote" disabled>
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-track-friend" disabled>
+                        <label class="form-check-label fs-7">Enable Track Friend Post?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-track-fav" disabled>
+                        <label class="form-check-label fs-7">Enable Track Favorite Post?</label>
+                    </div>
+                </div>
+
+                <div class="bd-example atsu-options collapse">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="atsu-inject-comment" disabled>
                         <label class="form-check-label fs-7">Enable Automatic Add Comment Selected?</label>
                     </div>
                 </div>
 
-                <hr class="mb-2 mt-1 atsu-options collapse" />
+                
 
-                <div class="bd-example atsu-options collapse">
+                <hr class="mb-2 mt-1" />
+
+                <div class="bd-example">
                     <button type="button" class="btn btn-outline-danger btn-sm blink_me" id="atsu-apply">Save for this
                         URL</button>
                     <button type="button" class="btn btn-outline-warning btn-sm" id="atsu-cancel">Cancel</button>

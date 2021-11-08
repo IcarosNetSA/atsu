@@ -88,7 +88,10 @@ class metaverse {
                  * Analisis content Post and User
                  */
 
-                if (this.evalPostOwner() < 30) {
+
+                let points = this.evalPostOwner();
+
+                if (points < 30) {
                     mined.newuser = this.translate.qa.newuser;
                 }
 
@@ -104,7 +107,7 @@ class metaverse {
                     mined.post = this.translate.qa.post2;
                 }
 
-                if ((c_char + p_char) < 130) {
+                if ((c_char + p_char) < 160 && points < 5) {
                     mined.spam = this.translate.qa.spam; //"Apparently this post may be spam!";
                 }
 
@@ -182,9 +185,13 @@ class metaverse {
             let owner_detail = own.querySelector(".reputation-score");
             let raw_point = owner_detail.textContent;
             raw_point = raw_point.replace(/,/g, '');
+            let letter = raw_point.replace(/\d+/g, '');
+            letter = letter.replace(/\./g, '');
+            console.log("'" + letter + "'");
             const expo = ['k', 'm'];
             if (expo.some(v => raw_point.includes(v))) {
-                if (v == 'k') {
+
+                if (letter == 'k') {
                     points = parseInt(raw_point.replace(/\D/g, "")) * 1000;
                 } else {
                     points = parseInt(raw_point.replace(/\D/g, "")) * 1000000;
@@ -227,6 +234,7 @@ class metaverse {
     }
 
     countCharacters = (result, item) => {
+
         let seek_code = null;
         switch (item.tagName) {
             case 'P':
@@ -240,6 +248,7 @@ class metaverse {
                     }
                 });
                 break;
+
             case 'STRONG':
                 result.exp += ' ' + item.textContent;
                 result.p_char += item.textContent.length;
@@ -259,6 +268,7 @@ class metaverse {
                     }
                 });
                 break;
+
             case 'BLOCKQUOTE':
                 result.exp += ' ' + item.textContent;
                 result.p_char += item.textContent.length;
@@ -268,16 +278,46 @@ class metaverse {
             case 'IMG':
                 result.c_img++;
                 break;
+
         }
         return result;
+
     }
 
+    startCommentEngine = (mutation, c_this) => {
 
+        this.addPostCommentButtons(mutation, c_this).then(() => {
+            this.addEventListenerToCommentEngine();
+        });
 
+    }
 
+    addPostCommentButtons = (mutation, c_this) => {
+        return new Promise((resolve) => {
+            let list = document.getElementsByClassName('js-comment-help-link s-btn s-btn__link ta-left px2');
+            let atsu_btn = `
+                            <button 
+                            type="button" 
+                            class="s-btn js-modal-open" 
+                            id="atsu-post-comment"
+                            data-togle="s-modal"
+                            data-target="#atsu-modal"
+                            style="margin-top:5px; border: 3px solid rgb(246, 178, 107); color: rgb(194, 123, 160); font-style: italic;">
+                            Comments &amp; Help
+                            </button>`;
+            mutation.target.querySelector(".s-btn.s-btn__primary").insertAdjacentHTML('afterend', atsu_btn);
+            let help = document.getElementsByClassName('js-comment-help-link');
+            help[0].style.display = "none";
+            help[0].style.visibility = "hidden";
+            let comment_input = document.getElementsByClassName('s-textarea js-comment-text-input');
+            comment_input[0].rows = "5";
+            c_this.disconnect();
+            resolve(true);
+        });
+    }
 
-    injectElement = (mutation, c_this) => {
-
+    addEventListenerToCommentEngine = () => {
+        console.log('reach the meet for today');
     }
 
 }
@@ -407,8 +447,29 @@ function enableAutoPOST() {
 
 function enableRichComments() {
     console.log('Enable Rich Comments');
-    let element = document.getElementById('question-mini-list');
-    cronodetector(element, 'showNewPost');
+
+    var post_url_data = window.location.href.split('/');
+    var post_id = post_url_data[4];
+
+    console.log(post_id);
+
+    if (typeof post_id !== 'undefined') {
+
+        if (isNumeric(post_id)) {
+
+            var post_tittle = '';
+
+            if (typeof post_url_data[5] !== 'undefined') {
+                post_tittle = post_url_data[5].replaceAll('-', ' ');
+            }
+
+            console.log('ATSU is Working in POST: ' + post_id + ' ' + post_tittle);
+            let element = document.getElementById('add-comment-' + post_id);
+
+            cronodetector(element, 'startCommentEngine');
+
+        }
+    }
 }
 
 function enableLangDetection(mt) {
@@ -595,7 +656,7 @@ function setColorLink(setColors) {
                         a.question-hyperlink,
                         a.answer-hyperlink {
                             font-family: Calibri;
-                            font-weight: 100;
+                            font-weight: 400;
                             font-style: italic;
                         }
                         
@@ -649,7 +710,7 @@ function removeColorsLink() {
 }
 
 function cronodetector(element, functionName) {
-
+    console.log('Inicializando cronodetector', element, functionName);
     let mt = new metaverse();
     // Select the node that will be observed for mutations
     const targetNode = element; //document.getElementById('add-comment-' + post_id);
@@ -670,4 +731,9 @@ function cronodetector(element, functionName) {
         observer.observe(targetNode, config);
     }
 
+}
+
+function isNumeric(str) {
+    if (typeof str != "string") { return false; }
+    return !isNaN(str) && !isNaN(parseFloat(str));
 }

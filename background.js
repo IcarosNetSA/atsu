@@ -292,7 +292,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     return true;
 });
-
+/*
 setInterval(() => {
     bg.debugSetting();
 }, 10000);
+*/
