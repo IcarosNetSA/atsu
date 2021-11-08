@@ -88,7 +88,7 @@ class metaverse {
                  * Analisis content Post and User
                  */
 
-                if(this.evalPostOwner()<30){
+                if (this.evalPostOwner() < 30) {
                     mined.newuser = this.translate.qa.newuser;
                 }
 
