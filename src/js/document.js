@@ -694,7 +694,15 @@ class Metaverse {
             const [key, value] = entry;
 
             let tempRow = document.createElement('tr');
-            tempRow.innerHTML = `<td>` + value + `</td>`;
+            let row = `<td>` + value + `</td>`;
+
+            if (key == 0 || ket == 1) {
+                row += `<td></td><td></td>`;
+            } else {
+                row += `<td>Edit</td><td>Remove</td>`;
+            }
+
+            tempRow.innerHTML = row;
 
             modal_html.getElementById("atsu-comment-content-question").appendChild(tempRow);
 
@@ -761,7 +769,7 @@ class Metaverse {
 
         // Obtener Comentarios almacenados
 
-        console.log(this.a_post,comments);
+        console.log(this.a_post, comments);
 
         return comments;
     }
@@ -784,7 +792,7 @@ class Metaverse {
                 }
 
                 comment_box.focus();
-                comment_box.setSelectionRange(comment_box.value.length,comment_box.value.length);
+                comment_box.setSelectionRange(comment_box.value.length, comment_box.value.length);
             });
         });
     }
