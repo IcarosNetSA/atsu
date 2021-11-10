@@ -269,6 +269,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     if (request.saveSetting) {
+        console.log(bg,bg.c_uri,request.config);
         let setting = {};
         setting[bg.c_uri] = request.config;
         bg.saveSettingUri(setting).then(() => {

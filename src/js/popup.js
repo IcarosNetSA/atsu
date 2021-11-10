@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         saveSetting = (config) => {
             console.log(config);
-            chrome.runtime.sendMessage({ saveSetting: true, config: config }, (response) => {
+            chrome.runtime.sendMessage({ "saveSetting": true, "config": config }, (response) => {
                 if (response) {
                     let not = document.getElementById('atsu-not-save');
                     not.innerHTML = 'Saved Setting!';

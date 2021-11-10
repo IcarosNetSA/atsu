@@ -1,0 +1,262 @@
+<div data-controller="s-modal" data-s-modal-return-element="#atsu-post-comment">
+    <button type="button" class="s-btn js-modal-open" id="atsu-post-comment" data-action="s-modal#show"
+        style="margin-top:5px; border: 3px solid rgb(246, 178, 107); color: rgb(194, 123, 160); font-style: italic;">Comments
+        &amp; Help</button>
+    <aside class="s-modal" data-s-modal-target="modal" id="atsu-modal" tabindex="-1" role="dialog"
+        aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true">
+        <div class="s-modal--dialog wmn8 hmn5" role="document">
+            <h1 class="s-modal--header" id="modal-title">Selection and Configuration of Comments.</h1>
+            <div class="s-modal--body hs5" id="modal-description">
+
+                <nav>
+                    <ul class="s-navigation" role="tablist" data-controller="s-navigation-tablist">
+
+                        <li>
+                            <button type="button" role="tab" id="tab-question" aria-selected="true"
+                                aria-controls="panel-question" class="s-navigation--item is-selected">Comments for
+                                Questions</button>
+                        </li>
+
+                        <li>
+                            <button type="button" role="tab" id="tab-answers" aria-selected="false"
+                                aria-controls="panel-answers" tabindex="-1" class="s-navigation--item">Comments for
+                                Answers</button>
+                        </li>
+
+                        <li>
+                            <button type="button" role="tab" id="tab-answers" aria-selected="false"
+                                aria-controls="panel-help" tabindex="-1" class="s-navigation--item">Site Comment
+                                Help</button>
+                        </li>
+
+                        <li>
+                            <button type="button" role="tab" id="tab-comment-setting" aria-selected="false"
+                                aria-controls="panel-comment-setting" tabindex="-1"
+                                class="s-navigation--item">Settings</button>
+                        </li>
+
+                        <li>
+                            <button type="button" role="tab" id="tab-comment-import" aria-selected="false"
+                                aria-controls="panel-comment-import" tabindex="-1" class="s-navigation--item">Import
+                                Settings and Export</button>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div id="panel-question" aria-labelledby="tab-question" class="d-flex hs5">
+                    <div class="content-page p12 wmn100 overflow-scroll">
+                        <div class="col-section expanded">
+                            <table class="s-table s-table__bx s-table__stripes s-table__sm wmn100">
+                                <thead>
+                                    <tr>
+                                        <th class="s-table--cell12">Short Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="atsu-comment-content-question">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-answers" aria-labelledby="tab-answers" class="d-none d-flex hs5">
+                    <div class="content-page p12 wmn100 overflow-scroll">
+                        <div class="col-section expanded">
+                            <table class="s-table s-table__bx s-table__stripes s-table__sm wmn100">
+                                <thead>
+                                    <tr>
+                                        <th class="s-table--cell12">Short Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="atsu-comment-content-answer">
+
+                                </tbody>
+                            </table>
+                            <div class="d-flex flex--item gsx">
+                                <button class="flex--item s-btn s-btn__xs s-btn__outlined" id="atsu-modal-comment-cancel" type="button" data-action="s-modal#hide">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-help" aria-labelledby="tab-help" class="d-none d-flex hs5">
+                    <div class="content-page p12 overflow-scroll">
+                        <div class="col-section expanded">
+                            <h2>Formato de Comentarios</h2>
+                            <div class="col-summary">
+                                <p>Los comentarios solo admiten negrita, cursiva, código y enlaces; además, hay algunos
+                                    enlaces abreviados disponibles.</p>
+
+                                <pre>texto en _cursiva_ y **negrita**,<br>&#96;código en acentos graves&#96; insertado<br>y [enlaces básicos](https://example.com).</pre>
+                            </div>
+                            <div class="">
+                                <p>Enlaces abreviados admitidos:</p>
+                                <ul>
+                                    <li>
+                                        <p><code>[meta]</code> – enlace al sitio Meta actual; el texto del enlace es el
+                                            nombre del sitio (p. ej., “Súper usuario Meta”). No sucede nada si el sitio
+                                            no tiene (o ya es) un sitio Meta.</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[main]</code> – como [meta], pero al revés.</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[edit]</code> – enlace a la página de edición de la publicación donde
+                                            se encuentra el comentario; es decir, /posts/{id}/edit. El texto del enlace
+                                            es “edit” (se respeta el uso de mayúsculas).</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[tag:tagname]</code> y <code>[meta-tag:tagname]</code>: enlace a la
+                                            página de la etiqueta determinada. El texto del enlace es el nombre de la
+                                            etiqueta.<code>meta-tag</code> solo funciona en los sitios meta.</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[help]</code>, <code>[help/on-topic]</code>,
+                                            <code>[help/dont-ask]</code>, <code>[help/behavior]</code> y
+                                            <code>[meta-help]</code>: enlace a las páginas del centro de ayuda que se
+                                            visitan con frecuencia. El texto del enlace es “centro de ayuda” (se respeta
+                                            el uso de mayúsculas). Todos los enlaces conducen al sitio principal.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p><code>[tour]</code> – vínculo a la página del recorrida. El texto del vínculo
+                                            es “recorrido” (se respeta el uso de mayúsculas).</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[so]</code>, <code>[pt.so]</code>, <code>[su]</code>,
+                                            <code>[sf]</code>, <code>[metase]</code>, <code>[a51]</code>,
+                                            <code>[se]</code> – enlace al sitio determinado. El texto del enlace es el
+                                            nombre del sitio.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p><code>[chat]</code> – enlace a la sala de chat del sitio actual; el texto del
+                                            enlace es “Chat de {site name}”.</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[ask]</code>, <code>[answer]</code> – enlace a la página <a
+                                                href="/questions/how-to-ask">Cómo preguntar</a> o <a
+                                                href="/questions/how-to-answer">Cómo responder</a>.</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[mcve], [mre], [reprex], [repro], [example]</code> – enlace a <a
+                                                href="/help/minimal-reproducible-example">/help/minimal-reproducible-example</a>,
+                                            con el texto de enlace "ejemplo mínimo verificable".</p>
+                                    </li>
+                                    <li>
+                                        <p><code>[algo.se]</code>: enlace a algo.stackexchange.com, si el sitio existe.
+                                            El texto del enlace es el nombre del sitio. Utiliza <code>[ubuntu.se]</code>
+                                            para Ask Ubuntu.</p>
+                                    </li>
+                                </ul>
+                                <div class="col-section expanded">
+                                    <h3>Responder en comentarios</h3>
+                                    <div class="col-summary">
+                                        <p>
+                                            El propietario de la publicación en la que estás comentando
+                                            <b><i>siempre</i></b> recibirá notificaciones sobre tu comentario. Si le
+                                            estás respondiendo a otra persona que ya comentó en la misma publicación,
+                                            menciona el nombre de usuario:
+                                            <code><span class="bg-black-200">@</span>peter</code> y
+                                            <code><span class="bg-black-200">@</span>PeterSmith</code> notifican a una
+                                            persona que ya comentó llamada “Peter Smith”.
+                                        </p>
+                                    </div>
+                                    <div class="">
+                                        <p>
+                                            Por lo general, basta con mencionar solo el nombre del usuario a cuyo
+                                            comentario estas respondiendo, p. ej., <code>@ben</code> o
+                                            <code>@marc</code>. Sin embargo, es posible que debas ser más específico si
+                                            hay tres personas con el nombre Ben que comentaron anteriormente. Añade el
+                                            primer carácter del apellido, p. ej.:
+                                            <code>@ben<span class="bg-black-200">m</span></code> o
+                                            <code>@ben<span class="bg-black-200">c</span></code>\.
+                                            Los espacios no son válidos en los nombres de las respuestas a los
+                                            comentarios; así que, <i>no</i> utilices <code>@peter smith</code>, siempre
+                                            introdúcelo como <code>@peters</code> o <code>@petersmith</code>.
+                                        </p>
+                                        <p>
+                                            Si el usuario al que le respondes no tiene un nombre y apellido normal,
+                                            simplemente introduce la suficiente cantidad de caracteres del nombre para
+                                            aclarar a quién le respondes.
+                                            El mínimo es de tres caracteres, por lo que si le respondes a “Fantástico”,
+                                            introduce <code>@fan</code>, <code>@fant</code> o <code>@fantástico</code>.
+                                        </p>
+                                        <p>
+                                            Puedes utilizar el mismo método para notificar a cualquier editor de la
+                                            publicación o, si este fuera el caso, al
+                                            <span class="mod-flair " title="Moderador">♦</span> moderador que cerró la
+                                            pregunta.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-comment-setting" aria-labelledby="tab-comment-setting" class="d-none d-flex hs5">
+                    <div class="content-page p12 overflow-scroll">
+                        <div class="col-section expanded">
+                            <div class="d-flex flex--item gsx">
+                                <button class="flex--item s-btn s-btn__xs s-btn__primary mr8" type="button">Save Setting ATSU</button>
+                                <button class="flex--item s-btn s-btn__xs s-btn__outlined" type="button" data-action="s-modal#hide">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-comment-import" aria-labelledby="tab-comment-import" class="d-none d-flex hs5">
+                    <div class="content-page p12 overflow-scroll">
+                        <div class="col-section expanded">
+                            <fieldset class="d-flex mb8 gsy fd-column">
+                                <legend class="flex--item s-label mb4">Where do you want to import your configuration from?
+                                </legend>
+                                <div class="flex--item">
+                                    <div class="d-flex gs16">
+                                        <div class="flex--item">
+                                            <div class="d-flex gs8 gsx">
+                                                <div class="flex--item">
+                                                    <input class="s-radio" type="radio" name="radio-horz-group"
+                                                        id="choice-horz-radio-1" />
+                                                </div>
+                                                <label class="flex--item s-label fw-normal"
+                                                    for="choice-horz-radio-1">Gist Url</label>
+                                            </div>
+                                        </div>
+                                        <div class="flex--item">
+                                            <div class="d-flex gs8 gsx">
+                                                <div class="flex--item">
+                                                    <input class="s-radio" type="radio" name="radio-horz-group"
+                                                        id="choice-horz-radio-2" />
+                                                </div>
+                                                <label class="flex--item s-label fw-normal"
+                                                    for="choice-horz-radio-2">Json File</label>
+                                            </div>
+                                        </div>
+                                        <div class="flex--item">
+                                            <div class="d-flex gs8 gsx">
+                                                <div class="flex--item">
+                                                    <input class="s-radio" type="radio" name="radio-horz-group"
+                                                        id="choice-horz-radio-3" />
+                                                </div>
+                                                <label class="flex--item s-label fw-normal"
+                                                    for="choice-horz-radio-3">Sync Cloud Setting</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="d-flex flex--item gsx">
+                                <button class="flex--item s-btn s-btn__xs s-btn__primary mr8" type="button">Import Setting</button>
+                                <button class="flex--item s-btn s-btn__xs s-btn__outlined" type="button" data-action="s-modal#hide">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
