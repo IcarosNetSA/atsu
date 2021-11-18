@@ -13,16 +13,18 @@
         "newuser": "Al parecer este usuario es relativamente nuevo! ten cuidado con los comentarios, y respuestas que le des, recuerda que esta en una etapa de aprendisaje de la herramientas que ofrece la red, orientalo si es posible a editar y crear un buen post."
     },
     "comment":{
-        "0":"Hola amigo",
-        "1":" Bienvenido al {site}",
-        "2":" He verificado tu post y te comento lo siguiente:",
+        "0":"Hola",
+        "1":" Bienvenid@ al {site}, veo que eres nuev@ te recomendaria hacer el [tour] para que conoscas mejor el sitio",
+        "2":" He mirado tu post y te comento lo siguiente:",
         "3":" No has dado una explicación exacta de tu situación o problema",
-        "4":" Puedes leer este Articulo [ask]",
+        "4":" Puedes leer este Articulo [ask] para que tu pregunta sea mejor recibida",
         "5":" Me parece que a tu POST le falta un Codigo o Ejemplo Minimo Reproducible",
         "6":" Me parece que a tu POST contiene código no formateado",
         "7":" Puedes leer este Articulo [mre]",
         "8":" He visto que has agregado Imágenes, es preferible que tus ejemplos sean en texto y facilites el uso del mismo",
         "9":" También es importante que sepas que preguntas son mal vistas [help/dont-ask]",
-        "99":"Hello Friend, your Post has a problem and is written in a different Language than the expected on the Site; I recommend that you translate it into Spanish."
+        "99":"Hello Friend, your Post has a problem and is written in a different Language than the expected on the Site; I recommend that you translate it into Spanish.",
+        "100":"BAsada en opiniones invitar al chat",
+        "101":"BAsada en opiniones nuevo usuario"
     }
 }

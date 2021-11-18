@@ -248,12 +248,14 @@ chrome.tabs.onUpdated.addListener(() => {
         console.log('Update Windows: ' + bg.c_uri);
     });
 });
+
 chrome.tabs.onActivated.addListener(() => {
 
     bg.ValidateURLVisited().then(() => {
         console.log('New Windows: ' + bg.c_uri);
     });
 });
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     //comunication popup->background.    
     if (request.popupOpen) {
@@ -291,8 +293,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse(bg.c_setting);
     }
 
+    if (request.updateBadge) {
+        console.log(bg.is_uri_conf,bg.is_uri_conf)
+        if (bg.is_uri_conf && bg.is_uri_able) {
+            bg.runing();
+        } else if (bg.is_uri_able && bg.is_uri_conf == false) {
+            bg.newTab();
+        } else {
+            bg.excluded();
+        }
+    }
+
+
+
     return true;
 });
+
 /*
 setInterval(() => {
     bg.debugSetting();

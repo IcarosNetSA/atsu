@@ -152,9 +152,17 @@ class Metaverse {
     }
 
     enableAutoPOST = () => {
+
         console.log('Show New Posts is runing');
-        let element = document.getElementById('question-mini-list');
+
+        let element = null;
+
+        element = document.getElementById('question-mini-list');
         this.cronodetector(element, 'showNewPost');
+
+        element = document.getElementById('questions');
+        this.cronodetector(element, 'showNewPost');
+
     }
 
     PostAnal = (lang_set) => {
@@ -276,26 +284,29 @@ class Metaverse {
         if (own !== null) {
 
             let owner_detail = own.querySelector(".reputation-score");
-            let raw_point = owner_detail.textContent;
-            raw_point = raw_point.replace(/,/g, '');
-            let letter = raw_point.replace(/\d+/g, '');
-            letter = letter.replace(/\./g, '');
+            if (owner_detail !== null) {
+                let raw_point = owner_detail.textContent;
+                raw_point = raw_point.replace(/,/g, '');
+                let letter = raw_point.replace(/\d+/g, '');
+                letter = letter.replace(/\./g, '');
 
-            const expo = ['k', 'm'];
+                const expo = ['k', 'm'];
 
-            if (expo.some(v => raw_point.includes(v))) {
+                if (expo.some(v => raw_point.includes(v))) {
 
-                if (letter == 'k') {
-                    points = parseInt(raw_point.replace(/\D/g, "")) * 1000;
+                    if (letter == 'k') {
+                        points = parseInt(raw_point.replace(/\D/g, "")) * 1000;
+                    } else {
+                        points = parseInt(raw_point.replace(/\D/g, "")) * 1000000;
+                    }
+
                 } else {
-                    points = parseInt(raw_point.replace(/\D/g, "")) * 1000000;
+
+                    points = parseInt(raw_point.replace(/\D/g, ""));
+
                 }
-
-            } else {
-
-                points = parseInt(raw_point.replace(/\D/g, ""));
-
             }
+
         }
 
         return points;
@@ -592,11 +603,11 @@ class Metaverse {
             let selected = document.getElementById('sidebar');
             let template = document.createElement('template');
 
-            template.innerHTML = atsu_suggest;
-            selected.parentNode.replaceChild(template.content.firstChild, selected);
-
+            if (selected != null) {
+                template.innerHTML = atsu_suggest;
+                selected.parentNode.replaceChild(template.content.firstChild, selected);
+            }
         }
-
     }
 
     isNumeric = (str) => {
@@ -696,7 +707,7 @@ class Metaverse {
             let tempRow = document.createElement('tr');
             let row = `<td>` + value + `</td>`;
 
-            if (key == 0 || ket == 1) {
+            if (key == 0 || key == 1) {
                 row += `<td></td><td></td>`;
             } else {
                 row += `<td>Edit</td><td>Remove</td>`;
@@ -849,6 +860,9 @@ async function init() {
             console.log('no hay configuracion para esta URL', response);
         }
     });
+
+    chrome.runtime.sendMessage({ updateBadge: true });
+
 };
 
 //==================================================================================================//
